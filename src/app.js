@@ -2,8 +2,13 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const app = express();
+const router = express.Router();
+
+// conectar ao banco de dados
+mongoose.connect('mongodb://localhost:27017/nodestore', { useNewUrlParser: true, useUnifiedTopology: true });
 
 // carregar as Rotas
 const indexRoute = require('./routes/index-route');

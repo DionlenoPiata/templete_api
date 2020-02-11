@@ -14,7 +14,7 @@ mongoose.connect('mongodb://localhost:27017/nodestore', { useNewUrlParser: true,
 const indexRoute = require('./routes/index-route');
 
 // #=>
-const colectionNameRoute = require('./routes/{{colectionName}}-route');
+const collectionNameRoute = require('./routes/{{collectionName}}-route');
 // <=#
 
 // middleware de conversao de dados
@@ -28,7 +28,13 @@ app.use('/', indexRoute);
 // rotas da aplicacao
 
 // #=>
-app.use('/colectionNameRoute' + 's', colectionNameRoute);
+app.use('/collectionNameRoute' + 's', collectionNameRoute);
 // <=#
+
+// rotas de teste
+const pessoaRoute = require('./routes/pessoa-route');
+app.use('/pessoas', pessoaRoute);
+
+
 
 module.exports = app;

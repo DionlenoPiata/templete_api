@@ -7,13 +7,14 @@ const schema = new Schema({
 
     // aqui vai uma lista de atributos
     nameAttribute: {
+        type: String // teste
         //type: Number, String, Boolean, Array, Date, Buffer, ObjectId, Mixed
         //required: true || false -> se eh obrigado receber
         //trim: retorna o texto sem os espaços em branco no início e fim do texto
         //index:
         //unique:
         //default: setar o valor default para o atributo
-    }
+    } // M
 });
 
-module.exports = mongoose.model('CollectionName', schema);
+module.exports = mongoose.model('CollectionName', schema); // M

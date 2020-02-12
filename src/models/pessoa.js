@@ -9,4 +9,4 @@ const schema = new Schema({
     dataCadastro: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('ColectionName', schema);
+module.exports = mongoose.model('Pessoa', schema);

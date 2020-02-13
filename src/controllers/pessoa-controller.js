@@ -58,11 +58,19 @@ exports.post = (req, res, next) => {
 }
 
 exports.put = (req, res, next) => {
-    const id = req.params.id;
-    res.status(200).send({
-        id: id,
-        item: req.body
-    });
+    Pessoa
+        .findByIdAndUpdate(req.params.id, {
+            $set: req.body
+        }).then(x => {
+            res.status(200).send({
+                message: 'Pessoa: atualizado com sucesso!'
+            });
+        }).catch(e => {
+            res.status(400).send({
+                message: 'Pessoa: Falha ao atuallizar!',
+                data: e
+            });
+        });
 }
 
 exports.delete = (req, res, next) => {

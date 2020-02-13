@@ -18,12 +18,25 @@ exports.getBy = (req, res, next) => {
     // a depender do by passado ele faz o find bay por aquele atributo
     const by = { [req.body.by]: req.params.by }
 
-    Pessoa.find(by, req.body.filter)
-        .then(data => { // M
-            res.status(200).send(data);
-        }).catch(e => {
-            res.status(400).send(e);
-        });
+    // se quiser pegar apenas um, retorna o objeto e nao array
+    const findOne = req.body.findOne;
+
+    if (findOne) {
+        Pessoa.findOne(by, req.body.filter)
+            .then(data => { // M
+                res.status(200).send(data);
+            }).catch(e => {
+                res.status(400).send(e);
+            });
+
+    } else {
+        Pessoa.find(by, req.body.filter)
+            .then(data => { // M
+                res.status(200).send(data);
+            }).catch(e => {
+                res.status(400).send(e);
+            });
+    }
 }
 
 exports.post = (req, res, next) => {

@@ -6,6 +6,7 @@ const router = express.Router();
 const controller = require('../controllers/pessoa-controller');
 
 router.get('/', controller.get);
+router.get('/:by', controller.getBy);
 router.post('/', controller.post);
 router.put('/:id', controller.put);
 router.delete('/', controller.delete);

@@ -3,6 +3,16 @@
 const mongoose = require('mongoose');
 const Pessoa = mongoose.model('Pessoa'); // M
 
+exports.get = (req, res, next) => {
+
+    Pessoa.find({}, req.body.filter)
+        .then(data => { // M
+            res.status(200).send(data);
+        }).catch(e => {
+            res.status(400).send(e);
+        });
+}
+
 exports.post = (req, res, next) => {
 
     var pessoa = new Pessoa(req.body); // M

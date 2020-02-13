@@ -3,6 +3,15 @@
 const mongoose = require('mongoose');
 const CollectionName = mongoose.model('CollectionName'); // M
 
+exports.get = (req, res, next) => {
+    CollectionName.find({}, req.body.filter)
+        .then(data => { // M
+            res.status(200).send(data);
+        }).catch(e => {
+            res.status(400).send(e);
+        });
+}
+
 exports.post = (req, res, next) => {
 
     var collectionName = new CollectionName(req.body); // M

@@ -51,10 +51,9 @@ exports.post = (req, res, next) => {
 }
 
 exports.put = (req, res, next) => {
-    Pessoa
-        .findByIdAndUpdate(req.params.id, {
-            $set: req.body
-        }).then(x => {
+
+    dao.update(req.params.id, req.body)
+        .then(x => {
             res.status(200).send({
                 message: 'Pessoa: atualizado com sucesso!'
             });

@@ -21,3 +21,10 @@ exports.create = (data) => {
     var pessoa = new Pessoa(data); // M
     return pessoa.save(); // M
 }
+
+exports.update = (id, data) => {
+    return Pessoa
+        .findByIdAndUpdate(id, {
+            $set: data
+        });
+}

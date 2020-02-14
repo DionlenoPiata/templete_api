@@ -50,16 +50,15 @@ exports.post = (req, res, next) => {
 };
 
 exports.put = (req, res, next) => {
-    CollectionName
-        .findByIdAndUpdate(req.params.id, {
-            $set: req.body
-        }).then(x => {
+
+    dao.update(req.params.id, req.body)
+        .then(x => {
             res.status(200).send({
-                message: 'CollectionName: atualizado com sucesso!'
+                message: 'collectionName: atualizado com sucesso!'
             });
         }).catch(e => {
             res.status(400).send({
-                message: 'CollectionName: Falha ao atuallizar!',
+                message: 'collectionName: Falha ao atuallizar!',
                 data: e
             });
         });

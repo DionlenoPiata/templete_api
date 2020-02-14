@@ -20,3 +20,10 @@ exports.create = (data) => {
     var collectionName = new CollectionName(data); // M
     return collectionName.save(); // M
 }
+
+exports.update = (id, data) => {
+    return CollectionName
+        .findByIdAndUpdate(id, {
+            $set: data
+        });
+}

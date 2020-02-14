@@ -10,7 +10,6 @@ const router = express.Router();
 // conectar ao banco de dados
 mongoose.connect('mongodb://localhost:27017/nodestore', { useNewUrlParser: true, useUnifiedTopology: true });
 
-
 // CARREGA OS MODELS DE TESTE
 /* -------------------------------------------------------------------*/
 const Pessoa = require('./models/pessoa');

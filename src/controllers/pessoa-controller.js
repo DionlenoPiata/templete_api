@@ -6,7 +6,9 @@ const dao = require('../dao/pessoa-dao'); // M
 
 exports.get = (req, res, next) => {
 
-    dao.get(req)
+    const filter = req.body.filter;
+
+    dao.get(filter)
         .then(data => {
             res.status(200).send(data);
         }).catch(e => {
@@ -16,7 +18,14 @@ exports.get = (req, res, next) => {
 
 exports.getBy = (req, res, next) => {
 
-    dao.getBy(req)
+    // a depender do by passado ele faz o find bay por aquele atributo
+    const by = { [req.body.by]: req.params.by }
+    // se quiser pegar apenas um, retorna o objeto e nao array
+    const findOne = req.body.findOne;
+    // filtro de retorno
+    const filter = req.body.filter;
+
+    dao.getBy(by, findOne, filter)
         .then(data => {
             res.status(200).send(data);
         }).catch(e => {

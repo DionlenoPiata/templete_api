@@ -3,20 +3,15 @@
 const mongoose = require('mongoose');
 const CollectionName = mongoose.model('CollectionName');
 
-exports.get = (req) => {
-    return CollectionName.find({}, req.body.filter);
+exports.get = (filter) => {
+    return CollectionName.find({}, filter); // M
 }
 
-exports.getBy = (req) => {
-
-    // a depender do by passado ele faz o find bay por aquele atributo
-    const by = { [req.body.by]: req.params.by }
-    // se quiser pegar apenas um, retorna o objeto e nao array
-    const findOne = req.body.findOne;
+exports.getBy = (by, findOne, filter) => {
 
     if (findOne) {
-        return CollectionName.findOne(by, req.body.filter);
+        return CollectionName.findOne(by, filter); // M
     }
 
-    return CollectionName.find(by, req.body.filter);
+    return CollectionName.find(by, filter); // M
 }

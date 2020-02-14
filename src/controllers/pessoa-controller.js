@@ -74,5 +74,16 @@ exports.put = (req, res, next) => {
 }
 
 exports.delete = (req, res, next) => {
-    res.status(200).send(req.body);
+    Pessoa
+        .findOneAndRemove(req.params.id)
+        .then(x => {
+            res.status(200).send({
+                message: 'Pessoa: removido com sucesso!'
+            });
+        }).catch(e => {
+            res.status(400).send({
+                message: 'Pessoa: Falha ao remover!',
+                data: e
+            });
+        });
 }

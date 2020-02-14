@@ -2,11 +2,12 @@
 
 const mongoose = require('mongoose');
 const Pessoa = mongoose.model('Pessoa'); // M
+const dao = require('../dao/pessoa-dao'); // M
 
 exports.get = (req, res, next) => {
 
-    Pessoa.find({}, req.body.filter)
-        .then(data => { // M
+    dao.get(req)
+        .then(data => {
             res.status(200).send(data);
         }).catch(e => {
             res.status(400).send(e);
@@ -15,28 +16,12 @@ exports.get = (req, res, next) => {
 
 exports.getBy = (req, res, next) => {
 
-    // a depender do by passado ele faz o find bay por aquele atributo
-    const by = { [req.body.by]: req.params.by }
-
-    // se quiser pegar apenas um, retorna o objeto e nao array
-    const findOne = req.body.findOne;
-
-    if (findOne) {
-        Pessoa.findOne(by, req.body.filter)
-            .then(data => { // M
-                res.status(200).send(data);
-            }).catch(e => {
-                res.status(400).send(e);
-            });
-
-    } else {
-        Pessoa.find(by, req.body.filter)
-            .then(data => { // M
-                res.status(200).send(data);
-            }).catch(e => {
-                res.status(400).send(e);
-            });
-    }
+    dao.getBy(req)
+        .then(data => {
+            res.status(200).send(data);
+        }).catch(e => {
+            res.status(400).send(e);
+        });
 }
 
 exports.post = (req, res, next) => {
@@ -75,7 +60,7 @@ exports.put = (req, res, next) => {
 
 exports.delete = (req, res, next) => {
     Pessoa
-        .findOneAndRemove(req.params.id)
+        .findByIdAndDelete(req.params.id)
         .then(x => {
             res.status(200).send({
                 message: 'Pessoa: removido com sucesso!'

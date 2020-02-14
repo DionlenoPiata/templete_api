@@ -27,3 +27,8 @@ exports.update = (id, data) => {
             $set: data
         });
 }
+
+exports.delete = (id) => {
+    return CollectionName
+        .findByIdAndDelete(id);
+}

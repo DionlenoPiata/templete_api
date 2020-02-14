@@ -66,8 +66,7 @@ exports.put = (req, res, next) => {
 }
 
 exports.delete = (req, res, next) => {
-    Pessoa
-        .findByIdAndDelete(req.params.id)
+    dao.delete(req.params.id)
         .then(x => {
             res.status(200).send({
                 message: 'Pessoa: removido com sucesso!'

@@ -65,8 +65,8 @@ exports.put = (req, res, next) => {
 };
 
 exports.delete = (req, res, next) => {
-    CollectionName
-        .findByIdAndDelete(req.params.id)
+
+    dao.delete(req.params.id)
         .then(x => {
             res.status(200).send({
                 message: 'CollectionName: removido com sucesso!'

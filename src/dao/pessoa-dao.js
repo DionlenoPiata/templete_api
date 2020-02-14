@@ -28,3 +28,8 @@ exports.update = (id, data) => {
             $set: data
         });
 }
+
+exports.delete = (id) => {
+    return Pessoa
+        .findByIdAndDelete(id);
+}

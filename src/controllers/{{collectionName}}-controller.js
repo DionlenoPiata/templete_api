@@ -35,9 +35,8 @@ exports.getBy = (req, res, next) => {
 
 exports.post = (req, res, next) => {
 
-    var collectionName = new CollectionName(req.body); // M
-    collectionName
-        .save()
+    dao
+        .create(req.body)
         .then(x => {
             res.status(201).send({
                 message: 'collectionName, cadastro com sucesso!' // M

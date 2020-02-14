@@ -35,9 +35,8 @@ exports.getBy = (req, res, next) => {
 
 exports.post = (req, res, next) => {
 
-    var pessoa = new Pessoa(req.body); // M
-    pessoa
-        .save()
+    dao
+        .create(req.body)
         .then(x => {
             res.status(201).send({
                 message: 'pessoa, cadastro com sucesso!'

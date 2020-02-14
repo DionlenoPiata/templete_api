@@ -16,3 +16,8 @@ exports.getBy = (by, findOne, filter) => {
 
     return Pessoa.find(by, filter); // M
 }
+
+exports.create = (data) => {
+    var pessoa = new Pessoa(data); // M
+    return pessoa.save(); // M
+}

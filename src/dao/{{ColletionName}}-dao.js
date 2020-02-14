@@ -15,3 +15,8 @@ exports.getBy = (by, findOne, filter) => {
 
     return CollectionName.find(by, filter); // M
 }
+
+exports.create = (data) => {
+    var collectionName = new CollectionName(data); // M
+    return collectionName.save(); // M
+}

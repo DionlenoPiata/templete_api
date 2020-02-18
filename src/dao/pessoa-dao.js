@@ -9,28 +9,31 @@ exports.get = async (filter) => {
     return res;
 }
 
-exports.getBy = (by, findOne, filter) => {
+exports.getBy = async (by, findOne, filter) => {
+
+    var res;
 
     if (findOne) {
-        return Pessoa.findOne(by, filter); // M
+        res = await Pessoa.findOne(by, filter); // M
+        return res;
     }
-
-    return Pessoa.find(by, filter); // M
+    res = await Pessoa.find(by, filter); // M
+    return res;
 }
 
-exports.create = (data) => {
+exports.create = async (data) => {
     var pessoa = new Pessoa(data); // M
-    return pessoa.save(); // M
+    await pessoa.save(); // M
 }
 
-exports.update = (id, data) => {
-    return Pessoa
+exports.update = async (id, data) => {
+    await Pessoa
         .findByIdAndUpdate(id, {
             $set: data
         });
 }
 
-exports.delete = (id) => {
-    return Pessoa
+exports.delete = async (id) => {
+    await Pessoa
         .findByIdAndDelete(id);
 }

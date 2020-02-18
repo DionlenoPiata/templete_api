@@ -8,28 +8,31 @@ exports.get = async (filter) => {
     return res;
 }
 
-exports.getBy = (by, findOne, filter) => {
+exports.getBy = async (by, findOne, filter) => {
+
+    var res;
 
     if (findOne) {
-        return CollectionName.findOne(by, filter); // M
+        res = await CollectionName.findOne(by, filter); // M
+        return res;
     }
-
-    return CollectionName.find(by, filter); // M
+    res = await CollectionName.find(by, filter); // M
+    return res;
 }
 
-exports.create = (data) => {
+exports.create = async (data) => {
     var collectionName = new CollectionName(data); // M
-    return collectionName.save(); // M
+    await collectionName.save(); // M
 }
 
-exports.update = (id, data) => {
-    return CollectionName
+exports.update = async (id, data) => {
+    await CollectionName
         .findByIdAndUpdate(id, {
             $set: data
         });
 }
 
-exports.delete = (id) => {
-    return CollectionName
+exports.delete = async (id) => {
+    await CollectionName
         .findByIdAndDelete(id);
 }

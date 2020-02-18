@@ -4,8 +4,9 @@ const mongoose = require('mongoose');
 const Pessoa = mongoose.model('Pessoa');
 
 
-exports.get = (filter) => {
-    return Pessoa.find({}, filter); // M
+exports.get = async (filter) => {
+    const res = await Pessoa.find({}, filter); // M
+    return res;
 }
 
 exports.getBy = (by, findOne, filter) => {

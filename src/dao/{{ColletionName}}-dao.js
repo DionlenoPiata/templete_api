@@ -3,8 +3,9 @@
 const mongoose = require('mongoose');
 const CollectionName = mongoose.model('CollectionName');
 
-exports.get = (filter) => {
-    return CollectionName.find({}, filter); // M
+exports.get = async (filter) => {
+    const res = await CollectionName.find({}, filter); // M
+    return res;
 }
 
 exports.getBy = (by, findOne, filter) => {

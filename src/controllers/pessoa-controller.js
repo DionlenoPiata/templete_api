@@ -4,16 +4,16 @@ const mongoose = require('mongoose');
 const Pessoa = mongoose.model('Pessoa'); // M
 const dao = require('../dao/pessoa-dao'); // M
 
-exports.get = (req, res, next) => {
 
-    const filter = req.body.filter;
+exports.get = async (req, res, next) => {
 
-    dao.get(filter)
-        .then(data => {
-            res.status(200).send(data);
-        }).catch(e => {
-            res.status(400).send(e);
-        });
+    try {
+        const filter = req.body.filter;
+        var data = await dao.get(filter);
+        res.status(200).send(data);
+    } catch (e) {
+        res.status(500).send({ message: 'Falha ao processar a requisição!' });
+    }
 }
 
 exports.getBy = (req, res, next) => {

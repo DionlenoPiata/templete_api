@@ -4,16 +4,15 @@ const mongoose = require('mongoose');
 const CollectionName = mongoose.model('CollectionName'); // M
 const dao = require('../dao/{{ColletionName}}-dao'); // M
 
-exports.get = (req, res, next) => {
+exports.get = async (req, res, next) => {
 
-    const filter = req.body.filter;
-
-    dao.get(filter)
-        .then(data => {
-            res.status(200).send(data);
-        }).catch(e => {
-            res.status(400).send(e);
-        });
+    try {
+        const filter = req.body.filter;
+        var data = await dao.get(filter);
+        res.status(200).send(data);
+    } catch (e) {
+        res.status(500).send({ message: 'Falha ao processar a requisição!' });
+    }
 }
 
 exports.getBy = (req, res, next) => {

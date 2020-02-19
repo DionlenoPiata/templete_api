@@ -1,7 +1,7 @@
 'use strict'
 
 const mongoose = require('mongoose');
-const CollectionName = mongoose.model('CollectionName'); // M
+// const CollectionName = mongoose.model('CollectionName'); // M
 const dao = require('../dao/{{ColletionName}}-dao'); // M
 
 exports.get = async (req, res, next) => {

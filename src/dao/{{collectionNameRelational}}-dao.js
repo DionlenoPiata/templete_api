@@ -1,7 +1,7 @@
 'use strict'
 
 const mongoose = require('mongoose');
-const Object = mongoose.model('CollectionNameRelational');
+const Object = mongoose.model('CollectionNameRelational'); // M
 
 exports.get = async (filter) => {
     const res = await Object.find({}, filter);

@@ -19,6 +19,7 @@ const Pessoa = require('./models/pessoa');
 /* -------------------------------------------------------------------*/
 // #=> 
 const CollectionName = require('./models/{{collectionName}}');
+const CollectionNameRelational = require('./models/{{collectionNameRalational}}');
 // <=#
 /* -------------------------------------------------------------------*/
 
@@ -31,6 +32,7 @@ const indexRoute = require('./routes/index-route');
 /* -------------------------------------------------------------------*/
 // #=>
 const collectionNameRoute = require('./routes/{{collectionName}}-route');
+const collectionNameRelationalRoute = require('./routes/{{collectionNameRalational}}-route');
 // <=#
 /* -------------------------------------------------------------------*/
 
@@ -49,6 +51,7 @@ app.use('/', indexRoute);
 /* -------------------------------------------------------------------*/
 // #=>
 app.use('/collectionNameRoute' + 's', collectionNameRoute);
+app.use('/collectionNameRelationalRoute' + 's', collectionNameRelationalRoute);
 // <=#
 /* -------------------------------------------------------------------*/
 

@@ -1,8 +1,7 @@
 'use strict'
 
 const mongoose = require('mongoose');
-const Document = mongoose.model('Pessoa'); // M
-
+const Document = mongoose.model('User');
 
 exports.get = async (filter) => {
     const res = await Document.find({}, filter);

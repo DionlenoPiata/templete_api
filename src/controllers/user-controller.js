@@ -3,6 +3,7 @@
 const dao = require('../dao/user-dao');
 const md5 = require('md5');
 const authenticate = require('../services/auth-service');
+const config = require('../config');
 
 exports.post = async (req, res, next) => {
 
@@ -37,12 +38,43 @@ exports.authenticate = async (req, res, next) => {
         }
 
         const token = await authenticate.generateToken({
+            id: user.id,
             email: user.email,
             name: user.name,
         });
 
         res.status(201).send({
             token: token, data: {
+                email: user.email,
+                name: user.name
+            }
+        });
+    } catch (e) {
+        res.status(500).send({ message: 'Falha ao processar a requisição!' });
+    }
+}
+
+exports.refreshToken = async (req, res, next) => {
+
+    try {
+        var token = req.body.token || req.query.token || req.headers[config.headersNameToken];
+        const data = await authenticate.decodeToken(token);
+        const user = await dao.getBy({ "_id": data.id }, { "findOne": true });
+
+        if (!user) {
+            res.status(404).send({ message: 'Usuário não encontrado!' });
+            return;
+        }
+
+        const tokenData = await authenticate.generateToken({
+            id: user.id,
+            email: user.email,
+            name: user.name,
+        });
+
+        res.status(201).send({
+            token: tokenData,
+            data: {
                 email: user.email,
                 name: user.name
             }

@@ -3,12 +3,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const config = require('./config');
 
 const app = express();
-const router = express.Router();
+// const router = express.Router(); FS
 
 // conectar ao banco de dados
-mongoose.connect('mongodb://localhost:27017/nodestore', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(config.conectionString, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // CARREGA OS MODELS DE TESTE
 /* -------------------------------------------------------------------*/

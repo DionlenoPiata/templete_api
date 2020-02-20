@@ -1,42 +1,24 @@
 'use strict'
 
-const mongoose = require('mongoose');
-const CollectionName = mongoose.model('User');
 const dao = require('../dao/user-dao');
 const md5 = require('md5');
-
-exports.get = async (req, res, next) => {
-
-    try {
-        const filter = req.body.filter;
-        var data = await dao.get(filter);
-        res.status(200).send(data);
-    } catch (e) {
-        res.status(500).send({ message: 'Falha ao processar a requisição!' });
-    }
-}
-
-exports.getBy = async (req, res, next) => {
-
-    try {
-        const by = { [req.body.by]: req.params.by }
-        const findOne = req.body.findOne;
-        const filter = req.body.filter;
-
-        var data = await dao.getBy(by, findOne, filter);
-        res.status(200).send(data);
-
-    } catch (e) {
-        res.status(500).send({ message: 'Falha ao processar a requisição!' });
-    }
-}
+const authenticate = require('../services/auth-service');
+const config = require('../config');
 
 exports.post = async (req, res, next) => {
 
     try {
-        let data = req.body; // M
-        data.password = md5(req.body.password + global.SALT_KEY); // M
-        await dao.create(data); // M
+        let data = req.body;
+        data.password = md5(req.body.password + global.SALT_KEY);
+
+        const userExist = await dao.getBy({ "email": req.body.email }, { "findOne": "true" });
+
+        if (userExist) {
+            res.status(200).send({ message: 'Já existe um usuário com esse email!' });
+            return;
+        }
+
+        await dao.create(data);
         res.status(201).send({ message: 'Cadastro realizado com sucesso!' });
 
     } catch (e) {
@@ -44,23 +26,59 @@ exports.post = async (req, res, next) => {
     }
 }
 
-exports.put = async (req, res, next) => {
+exports.authenticate = async (req, res, next) => {
 
     try {
-        let data = req.body; // M
-        data.password = md5(req.body.password + global.SALT_KEY); // M
-        await dao.update(req.params.id, data) // M
-        res.status(200).send({ message: 'Atualizado com sucesso!' });
+
+        const user = await dao.authenticate({ email: req.body.email, password: md5(req.body.password + global.SALT_KEY) });
+
+        if (!user) {
+            res.status(404).send({ message: 'Usuário ou senha inválidos!' });
+            return;
+        }
+
+        const token = await authenticate.generateToken({
+            id: user.id,
+            email: user.email,
+            name: user.name,
+        });
+
+        res.status(201).send({
+            token: token, data: {
+                email: user.email,
+                name: user.name
+            }
+        });
     } catch (e) {
         res.status(500).send({ message: 'Falha ao processar a requisição!' });
     }
 }
 
-exports.delete = async (req, res, next) => {
+exports.refreshToken = async (req, res, next) => {
 
     try {
-        await dao.delete(req.params.id)
-        res.status(200).send({ message: 'Removido com sucesso!' });
+        var token = req.body.token || req.query.token || req.headers[config.headersNameToken];
+        const data = await authenticate.decodeToken(token);
+        const user = await dao.getBy({ "_id": data.id }, { "findOne": true });
+
+        if (!user) {
+            res.status(404).send({ message: 'Usuário não encontrado!' });
+            return;
+        }
+
+        const tokenData = await authenticate.generateToken({
+            id: user.id,
+            email: user.email,
+            name: user.name,
+        });
+
+        res.status(201).send({
+            token: tokenData,
+            data: {
+                email: user.email,
+                name: user.name
+            }
+        });
     } catch (e) {
         res.status(500).send({ message: 'Falha ao processar a requisição!' });
     }

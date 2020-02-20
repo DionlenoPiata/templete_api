@@ -1,9 +1,6 @@
 'use strict'
 
-const mongoose = require('mongoose');
-const Pessoa = mongoose.model('Pessoa'); // M
 const dao = require('../dao/pessoa-dao'); // M
-
 
 exports.get = async (req, res, next) => {
 

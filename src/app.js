@@ -9,7 +9,11 @@ const app = express();
 // const router = express.Router(); FS
 
 // conectar ao banco de dados
-mongoose.connect(config.conectionString, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(config.conectionString, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+});
 
 // CARREGA OS MODELS DE TESTE
 /* -------------------------------------------------------------------*/
@@ -18,17 +22,19 @@ const Pessoa = require('./models/pessoa');
 
 // CARREGA OS MODELS
 /* -------------------------------------------------------------------*/
+const User = require('./models/user');
 // #=> 
 const CollectionName = require('./models/{{collectionName}}');
 // <=#
 /* -------------------------------------------------------------------*/
 
-// ROUTER ROTA HOME
+// ROUTERS ESTATICAS
 /* -------------------------------------------------------------------*/
 const indexRoute = require('./routes/index-route');
+const userRoute = require('./routes/user-route');
 /* -------------------------------------------------------------------*/
 
-// ROUTER QUE RESPONDE PELA COLECAO
+// ROUTERS DINAMICAS DAS COLECOES
 /* -------------------------------------------------------------------*/
 // #=>
 const collectionNameRoute = require('./routes/{{collectionName}}-route');
@@ -41,9 +47,10 @@ app.use(bodyParser.json()); // converte o que chega para json
 app.use(bodyParser.urlencoded({ extended: false })); // codificar as urls
 /* -------------------------------------------------------------------*/
 
-// ROTA HOME DA APLICAÇÃO
+// ROTA ESTATICAS DA APLICAÇÃO
 /* -------------------------------------------------------------------*/
 app.use('/', indexRoute);
+app.use('/user' + 's', userRoute);
 /* -------------------------------------------------------------------*/
 
 // ROTAS DINAMICAS DA APLICAÇÃO

@@ -1,11 +1,11 @@
 'use strict'
 
 const mongoose = require('mongoose');
-const Object = mongoose.model('Pessoa'); // M
+const Document = mongoose.model('Pessoa'); // M
 
 
 exports.get = async (filter) => {
-    const res = await Object.find({}, filter);
+    const res = await Document.find({}, filter);
     return res;
 }
 
@@ -14,26 +14,26 @@ exports.getBy = async (by, findOne, filter) => {
     var res;
 
     if (findOne) {
-        res = await Object.findOne(by, filter);
+        res = await Document.findOne(by, filter);
         return res;
     }
-    res = await Object.find(by, filter);
+    res = await Document.find(by, filter);
     return res;
 }
 
 exports.create = async (data) => {
-    var object = new Object(data);
-    await object.save();
+    var document = new Document(data);
+    await document.save();
 }
 
 exports.update = async (id, data) => {
-    await Object
+    await Document
         .findByIdAndUpdate(id, {
             $set: data
         });
 }
 
 exports.delete = async (id) => {
-    await Object
+    await Document
         .findByIdAndDelete(id);
 }

@@ -17,8 +17,14 @@ exports.post = async (req, res, next) => {
             res.status(200).send({ message: 'Já existe um usuário com esse email!' });
             return;
         }
+        await dao.create({
+            name: data.name,
+            email: data.email,
+            password: data.password,
+            roles: ["user"]
 
-        await dao.create(data);
+        });
+
         res.status(201).send({ message: 'Cadastro realizado com sucesso!' });
 
     } catch (e) {
@@ -41,6 +47,7 @@ exports.authenticate = async (req, res, next) => {
             id: user.id,
             email: user.email,
             name: user.name,
+            roles: user.roles,
         });
 
         res.status(201).send({
@@ -70,6 +77,7 @@ exports.refreshToken = async (req, res, next) => {
             id: user.id,
             email: user.email,
             name: user.name,
+            roles: user.roles,
         });
 
         res.status(201).send({

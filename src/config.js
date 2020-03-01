@@ -3,7 +3,7 @@ global.SALT_KEY = 'dv376234-3762-ssj3-dd82-j967gh38202dk';
 module.exports = {
 
     titleApplication: 'gerador de APIs',
-    version_application: '1.00',
+    versionApplication: '1.00',
 
     port: '3000',
 

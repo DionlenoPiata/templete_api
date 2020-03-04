@@ -21,7 +21,12 @@ const schema = new Schema({
     at5: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "CollectionName"
-    }]
+    }],
+    pessoa: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Pessoa"
+    },
+
 });
 
 module.exports = mongoose.model('CollectionNameRelational', schema); // M

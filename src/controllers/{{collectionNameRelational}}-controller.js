@@ -8,7 +8,9 @@ exports.get = async (req, res, next) => {
 
     try {
         const filter = req.body.filter;
-        var data = await dao.get(filter);
+        const populate = req.body.populate;
+
+        var data = await dao.get(filter, populate);
         res.status(200).send(data);
     } catch (e) {
         res.status(500).send({ message: 'Falha ao processar a requisição!' });
@@ -18,11 +20,12 @@ exports.get = async (req, res, next) => {
 exports.getBy = async (req, res, next) => {
 
     try {
-        const by = { [req.body.by]: req.params.by } // a depender do by passado ele faz o find bay por aquele atributo
-        const findOne = req.body.findOne; // se quiser pegar apenas um, retorna o objeto e nao array
-        const filter = req.body.filter; // filtro de retorno
+        const by = { [req.body.by]: req.params.by }
+        const findOne = req.body.findOne;
+        const filter = req.body.filter;
+        const populate = req.body.populate;
 
-        var data = await dao.getBy(by, findOne, filter);
+        var data = await dao.getBy(by, findOne, filter, populate);
         res.status(200).send(data);
 
     } catch (e) {

@@ -3,19 +3,40 @@
 const mongoose = require('mongoose');
 const Object = mongoose.model('CollectionNameRelational'); // M
 
-exports.get = async (filter) => {
-    const res = await Object.find({}, filter);
+exports.get = async (filter, populate) => {
+
+    var res;
+    if (populate) {
+        res = await Object
+            .find({}, filter)
+            .populate(populate.name, populate.atribute);
+        return res;
+    }
+    res = await Object.find({}, filter);
     return res;
 }
 
-exports.getBy = async (by, findOne, filter) => {
+exports.getBy = async (by, findOne, filter, populate) => {
 
     var res;
 
     if (findOne) {
-        res = await Object.findOne(by, filter);
+        if (populate) {
+            res = await Object
+                .findOne(by, filter)
+                .populate(populate.name, populate.atribute);
+        } else {
+            await Object.findOne(by, filter);
+        }
         return res;
     }
+    if (populate) {
+        res = await Object
+            .find(by, filter)
+            .populate(populate.name, populate.atribute);
+        return res;
+    }
+
     res = await Object.find(by, filter);
     return res;
 }

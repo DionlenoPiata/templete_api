@@ -5,7 +5,7 @@ module.exports = {
     titleApplication: 'gerador de APIs',
     versionApplication: '1.00',
 
-    port: '3000',
+    port: '3001',
 
     conectionString: 'mongodb://localhost:27017/nodestore',
 

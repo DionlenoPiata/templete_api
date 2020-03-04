@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 
-const controller = require('../controllers/{{collectionName}}-controller'); // M
+const controller = require('../controllers/{{collectionNameRelational}}-controller'); // M
 const authService = require('../services/auth-service'); // M
 
 router.get('/', authService.authorize, controller.get);

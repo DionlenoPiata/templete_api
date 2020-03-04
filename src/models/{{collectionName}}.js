@@ -14,7 +14,7 @@ const schema = new Schema({
         //index:
         //unique:
         //default: setar o valor default para o atributo
-    } // M
+    }, // M
 });
 
 module.exports = mongoose.model('CollectionName', schema); // M

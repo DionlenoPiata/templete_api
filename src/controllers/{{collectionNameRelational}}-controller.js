@@ -22,7 +22,7 @@ exports.getBy = async (req, res, next) => {
     try {
         const by = { [req.body.by]: req.params.by }
         const findOne = req.body.findOne;
-        const filter = req.body.filter;
+        const filter = req.body.filter.split(' ');
         const populate = req.body.populate;
 
         var data = await dao.getBy(by, findOne, filter, populate);

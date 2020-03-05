@@ -6,8 +6,8 @@ const router = express.Router();
 const controller = require('../controllers/pessoa-controller');
 const authService = require('../services/auth-service');
 
-router.get('/', authService.isAdmin, controller.get);
-router.get('/:by', authService.isAdmin, controller.getBy);
+router.get('/', controller.get);
+router.get('/:by', controller.getBy);
 
 router.post('/', authService.authorize, controller.post);
 router.put('/:id', authService.authorize, controller.put);

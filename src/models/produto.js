@@ -5,9 +5,12 @@ const Schema = mongoose.Schema;
 
 const schema = new Schema({
     nome: String,
-    cpf: String,
+    descricao: String,
     dataCadastro: { type: Date, default: Date.now },
-    telefone: [String]
+    marca: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Marca"
+    }
 });
 
-module.exports = mongoose.model('Pessoa', schema);
+module.exports = mongoose.model('Produto', schema);

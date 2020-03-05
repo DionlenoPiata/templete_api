@@ -23,9 +23,13 @@ const Pessoa = require('./models/pessoa');
 // CARREGA OS MODELS
 /* -------------------------------------------------------------------*/
 const User = require('./models/user');
+const Produto = require('./models/produto');
+const Pedido = require('./models/pedido');
+const Marca = require('./models/marca');
 // #=> 
 const CollectionName = require('./models/{{collectionName}}');
 const CollectionNameRelational = require('./models/{{collectionNameRalational}}');
+
 // <=#
 /* -------------------------------------------------------------------*/
 
@@ -40,6 +44,9 @@ const userRoute = require('./routes/user-route');
 // #=>
 const collectionNameRoute = require('./routes/{{collectionName}}-route');
 const collectionNameRelationalRoute = require('./routes/{{collectionNameRalational}}-route');
+const produtoRoute = require('./routes/produto-route');
+const pedidoRoute = require('./routes/pedido-route');
+const marcaRoute = require('./routes/marca-route');
 // <=#
 /* -------------------------------------------------------------------*/
 
@@ -47,6 +54,8 @@ const collectionNameRelationalRoute = require('./routes/{{collectionNameRalation
 /* -------------------------------------------------------------------*/
 app.use(bodyParser.json()); // converte o que chega para json
 app.use(bodyParser.urlencoded({ extended: false })); // codificar as urls
+
+// app.use(express.json());
 /* -------------------------------------------------------------------*/
 
 // Habilita o CORS
@@ -68,6 +77,9 @@ app.use('/user' + 's', userRoute);
 // #=>
 app.use('/collectionNameRoute' + 's', collectionNameRoute);
 app.use('/collectionNameRelationalRoute' + 's', collectionNameRelationalRoute);
+app.use('/produto' + 's', produtoRoute);
+app.use('/pedido' + 's', pedidoRoute);
+app.use('/marca' + 's', marcaRoute);
 // <=#
 /* -------------------------------------------------------------------*/
 

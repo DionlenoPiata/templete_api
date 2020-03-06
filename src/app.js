@@ -1,12 +1,10 @@
 'use strict';
 
 const express = require('express');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const config = require('./config');
 
 const app = express();
-// const router = express.Router(); FS
 
 // conectar ao banco de dados
 mongoose.connect(config.conectionString, {
@@ -44,10 +42,7 @@ const collectionNameRelationalRoute = require('./routes/{{collectionNameRalation
 /* -------------------------------------------------------------------*/
 
 // middleware de conversao de dados
-/* -------------------------------------------------------------------*/
-app.use(bodyParser.json()); // converte o que chega para json
-app.use(bodyParser.urlencoded({ extended: false })); // codificar as urls
-/* -------------------------------------------------------------------*/
+app.use(express.json());
 
 // Habilita o CORS
 app.use(function (req, res, next) {

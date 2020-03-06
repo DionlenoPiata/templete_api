@@ -1,7 +1,6 @@
 'use strict';
 
 const express = require('express');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const config = require('./config');
 
@@ -52,10 +51,10 @@ const marcaRoute = require('./routes/marca-route');
 
 // middleware de conversao de dados
 /* -------------------------------------------------------------------*/
-app.use(bodyParser.json()); // converte o que chega para json
-app.use(bodyParser.urlencoded({ extended: false })); // codificar as urls
+//app.use(bodyParser.json()); // converte o que chega para json
+//app.use(bodyParser.urlencoded({ extended: false })); // codificar as urls
 
-// app.use(express.json());
+app.use(express.json());
 /* -------------------------------------------------------------------*/
 
 // Habilita o CORS

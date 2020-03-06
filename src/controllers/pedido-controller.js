@@ -1,6 +1,6 @@
 'use strict'
 
-const mongoose = require('mongoose');
+//const mongoose = require('mongoose');
 // const CollectionName = mongoose.model('CollectionName'); // M
 const dao = require('../dao/pedido-dao'); // M
 

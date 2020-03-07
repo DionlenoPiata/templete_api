@@ -26,7 +26,7 @@ exports.getBy = async (by, findOne, filter, populate) => {
                 .findOne(by, filter)
                 .populate(populate);
         } else {
-            await Object.findOne(by, filter);
+            res = await Object.findOne(by, filter);
         }
         return res;
     }

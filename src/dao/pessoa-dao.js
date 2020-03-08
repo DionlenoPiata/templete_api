@@ -7,12 +7,12 @@ exports.get = async (filter, populate) => {
 
     var res;
     if (populate) {
-        res = await Object
+        res = await Document
             .find({}, filter)
             .populate(populate);
         return res;
     }
-    res = await Object.find({}, filter);
+    res = await Document.find({}, filter);
     return res;
 }
 
@@ -22,11 +22,11 @@ exports.getBy = async (by, findOne, filter, populate) => {
 
     if (findOne) {
         if (populate) {
-            res = await Object
+            res = await Document
                 .findOne(by, filter)
                 .populate(populate);
         } else {
-            res = await Object.findOne(by, filter);
+            res = await Document.findOne(by, filter);
         }
         return res;
     }
@@ -37,7 +37,7 @@ exports.getBy = async (by, findOne, filter, populate) => {
         return res;
     }
 
-    res = await Object.find(by, filter);
+    res = await Document.find(by, filter);
     return res;
 }
 
